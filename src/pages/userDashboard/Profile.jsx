@@ -46,7 +46,7 @@ const Profile = () => {
     setLoading(true);
     try {
       const response = await api.put('/updateProfile', formData);
-      if (response.status === 200) {
+      if (response.status >= 200 && response.status < 300) { // Check for successful status codes
         setProfile(response.data);
         setFormData({
           ...response.data,
@@ -54,6 +54,8 @@ const Profile = () => {
         });
         setIsEditing(false);
         alert('Profile updated successfully!');
+      } else {
+        alert('Failed to update profile. Please try again.'); // Handle non-success responses
       }
     } catch (error) {
       console.error('Error updating profile:', error);
@@ -61,6 +63,7 @@ const Profile = () => {
     }
     setLoading(false);
   };
+  
 
   const handlePasswordChange = async (e) => {
     e.preventDefault();
