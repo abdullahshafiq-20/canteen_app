@@ -23,6 +23,7 @@ export default function ShopSignupPage() {
       password,
       imageURL: imageURL || "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
     };
+    console.log(formData);
 
     try {
       const response = await api.post("/shop_signup", formData);
