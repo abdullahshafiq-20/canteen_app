@@ -15,6 +15,7 @@ import UserHome from './pages/userDashboard/UserHome';
 import LiveOrders from './pages/userDashboard/LiveOrders';
 import Profile from './pages/userDashboard/Profile';
 import OTPVerification from './pages/OtpVerification';
+import ShopSignupPage from './pages/ShopSignup';
 
 const App = () => {
   return (
@@ -24,6 +25,8 @@ const App = () => {
           <Route element={<PublicRoute />}>
             <Route path="/" element={<LoginPage />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/shopsignup" element={<ShopSignupPage />} />
+
           </Route>
           
           <Route path="/verification" element={
