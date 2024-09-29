@@ -37,8 +37,8 @@ const Home = () => {
     return <div className="p-4">Loading...</div>;
   }
 
-  const { shopDetails, topSellingItems, recentOrders, revenueOverTime, customerInsights } = dashboardData;
-
+  const { shopDetails, topSellingItems, recentOrders, revenueOverTime, customerInsights, revenue} = dashboardData;
+ 
   return (
     <div className="p-6 space-y-6">
       <h2 className="text-2xl font-bold mb-4">Dashboard for {shopDetails.name}</h2>
@@ -46,7 +46,7 @@ const Home = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-white p-4 rounded shadow">
           <h3 className="font-bold mb-2">Total Revenue</h3>
-          <p className="text-2xl font-bold">${parseFloat(shopDetails.total_revenue).toFixed(2)}</p>
+          <p className="text-2xl font-bold">${dashboardData.revenue}</p>
         </div>
         <div className="bg-white p-4 rounded shadow">
           <h3 className="font-bold mb-2">Total Orders</h3>

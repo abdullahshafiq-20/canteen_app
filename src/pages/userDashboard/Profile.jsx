@@ -8,6 +8,8 @@ const Profile = () => {
     user_name: '',
     email: '',
     image_url: '',
+    role: '',
+    alert_count: 0,
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -24,6 +26,8 @@ const Profile = () => {
         user_name: response.data.user_name,
         email: response.data.email,
         image_url: response.data.imageURL || '',
+        role: response.data.role,
+        alert_count: response.data.alert_count,
       });
       setLoading(false);
     } catch (error) {
@@ -44,6 +48,10 @@ const Profile = () => {
       const response = await api.put('/updateProfile', formData);
       if (response.status === 200) {
         setProfile(response.data);
+        setFormData({
+          ...response.data,
+          image_url: response.data.imageURL || '',
+        });
         setIsEditing(false);
         alert('Profile updated successfully!');
       }
@@ -170,7 +178,7 @@ const Profile = () => {
                 </dd>
               </div>
               <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">Warnig Count</dt>
+                <dt className="text-sm font-medium text-gray-500">Warning Count</dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{profile.alert_count}</dd>
               </div>
             </dl>
