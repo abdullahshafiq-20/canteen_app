@@ -25,7 +25,7 @@ export default function ShopSignupPage() {
     };
 
     try {
-      const response = await api.post("/signup", formData);
+      const response = await api.post("/shop_signup", formData);
       const { token, user_info } = response.data;
       login(token, user_info);
       navigate("/verification");
