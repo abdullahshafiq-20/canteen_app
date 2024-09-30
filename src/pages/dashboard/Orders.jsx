@@ -13,7 +13,7 @@ const Orders = () => {
   useEffect(() => {
     fetchShopOrders();
 
-    const socket = io('https://my-sql-backend.vercel.app'); // Replace with your server URL
+    const socket = io('https://mysql-backend-fvjo.onrender.com'); // Replace with your server URL
 
     socket.on('newOrder', (newOrder) => {
       setOrders((prevOrders) => [newOrder, ...prevOrders]);

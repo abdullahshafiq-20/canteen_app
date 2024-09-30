@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getToken } from '../utils/auth';
 
 const api = axios.create({
-  baseURL: 'https://my-sql-backend.vercel.app/api',
+  baseURL: 'https://mysql-backend-fvjo.onrender.com/api',
   // baseURL: 'http://localhost:5000/api', // Replace with your API URL
 });
 
