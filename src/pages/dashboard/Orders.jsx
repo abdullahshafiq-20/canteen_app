@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import io from 'socket.io-client';
 import api from '../../services/api';
 
 const Orders = () => {
@@ -9,6 +12,27 @@ const Orders = () => {
 
   useEffect(() => {
     fetchShopOrders();
+
+    const socket = io('https://my-sql-backend.vercel.app'); // Replace with your server URL
+
+    socket.on('newOrder', (newOrder) => {
+      setOrders((prevOrders) => [newOrder, ...prevOrders]);
+      toast.success('New order received!');
+    });
+
+    socket.on('orderUpdate', (updatedOrder) => {
+      setOrders((prevOrders) =>
+        prevOrders.map((order) =>
+          order.order_id === updatedOrder.order_id ? updatedOrder : order
+        )
+      );
+      if (selectedOrder && selectedOrder.order_id === updatedOrder.order_id) {
+        setSelectedOrder(updatedOrder);
+      }
+      toast.info(`Order ${updatedOrder.order_id} status updated to ${updatedOrder.status}`);
+    });
+
+    return () => socket.disconnect();
   }, []);
 
   const fetchShopOrders = async () => {
@@ -19,6 +43,7 @@ const Orders = () => {
     } catch (error) {
       console.error('Error fetching shop orders:', error);
       setError('Failed to fetch shop orders. Please try again.');
+      toast.error('Failed to fetch shop orders');
     } finally {
       setLoading(false);
     }
@@ -27,22 +52,13 @@ const Orders = () => {
   const handleUpdateOrderStatus = async (orderId, newStatus) => {
     setLoading(true);
     try {
-      const response = await api.put(`/updateOrderStatus/${orderId}`, { status: newStatus });
-      
-      if (response.data.message === 'Order status updated successfully') {
-        setOrders(orders.map(order => 
-          order.order_id === orderId ? { ...order, status: newStatus } : order
-        ));
-        if (selectedOrder && selectedOrder.order_id === orderId) {
-          setSelectedOrder({ ...selectedOrder, status: newStatus });
-        }
-        setError('');
-      } else {
-        throw new Error('Unexpected response from server');
-      }
+      await api.put(`/updateOrderStatus/${orderId}`, { status: newStatus });
+      setError('');
+      toast.success('Order status updated successfully');
     } catch (error) {
       console.error('Error updating order status:', error);
       setError('Failed to update order status. Please try again.');
+      toast.error('Failed to update order status');
     } finally {
       setLoading(false);
     }
@@ -50,6 +66,7 @@ const Orders = () => {
 
   return (
     <div className="p-6">
+      <ToastContainer />
       <h2 className="text-2xl font-bold mb-4">Shop Owner Dashboard</h2>
       
       {error && <p className="text-red-500 mb-4">{error}</p>}
