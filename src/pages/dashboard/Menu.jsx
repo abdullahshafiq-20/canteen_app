@@ -205,183 +205,177 @@ const Menu = () => {
     }
   };
 
-  if (shops.length === 0 && !isCreatingShop) {
-    return (
-      <div className="p-6">
-        <h1 className="text-3xl font-bold mb-6">Shop Manager</h1>
-        <p className="mb-4">You don't have any shops yet.</p>
-        <button
-          onClick={() => setIsCreatingShop(true)}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Create a Shop
-        </button>
-      </div>
-    );
-  }
-
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6">Shop Manager</h1>
+    <div className="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen p-8">
+      <h1 className="text-4xl font-bold mb-8 text-center text-indigo-800">Shop Manager</h1>
       
-      {error && <p className="text-red-500 mb-4">{error}</p>}
+      {error && <p className="text-red-500 mb-6 text-center bg-red-100 py-2 px-4 rounded-lg">{error}</p>}
 
       {isCreatingShop ? (
-        <form onSubmit={handleCreateShop} className="space-y-4">
-          <input
-            type="text"
-            name="name"
-            value={newShop.name}
-            onChange={handleInputChange}
-            placeholder="Shop Name"
-            className="w-full p-2 border rounded"
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            value={newShop.email}
-            onChange={handleInputChange}
-            placeholder="Email"
-            className="w-full p-2 border rounded"
-            required
-          />
-          <textarea
-            name="description"
-            value={newShop.description}
-            onChange={handleInputChange}
-            placeholder="Description"
-            className="w-full p-2 border rounded"
-            required
-          />
-          <input
-            type="url"
-            name="image_url"
-            value={newShop.image_url}
-            onChange={handleInputChange}
-            placeholder="Image URL"
-            className="w-full p-2 border rounded"
-          />
-          <input
-            type="tel"
-            name="phone_number"
-            value={newShop.phone_number}
-            onChange={handleInputChange}
-            placeholder="Phone Number"
-            className="w-full p-2 border rounded"
-            required
-          />
-          <button type="submit" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-            Create Shop
-          </button>
-        </form>
+        <div className="bg-white rounded-lg shadow-lg p-6 max-w-2xl mx-auto">
+          <h2 className="text-2xl font-semibold mb-4 text-indigo-700">Create a New Shop</h2>
+          <form onSubmit={handleCreateShop} className="space-y-4">
+            <input
+              type="text"
+              name="name"
+              value={newShop.name}
+              onChange={handleInputChange}
+              placeholder="Shop Name"
+              className="w-full p-2 border rounded"
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              value={newShop.email}
+              onChange={handleInputChange}
+              placeholder="Email"
+              className="w-full p-2 border rounded"
+              required
+            />
+            <textarea
+              name="description"
+              value={newShop.description}
+              onChange={handleInputChange}
+              placeholder="Description"
+              className="w-full p-2 border rounded"
+              required
+            />
+            <input
+              type="url"
+              name="image_url"
+              value={newShop.image_url}
+              onChange={handleInputChange}
+              placeholder="Image URL"
+              className="w-full p-2 border rounded"
+            />
+            <input
+              type="tel"
+              name="phone_number"
+              value={newShop.phone_number}
+              onChange={handleInputChange}
+              placeholder="Phone Number"
+              className="w-full p-2 border rounded"
+              required
+            />
+            <button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300">
+              Create Shop
+            </button>
+          </form>
+        </div>
       ) : (
-        <>
-          <div className="mb-4">
-            <label htmlFor="shop-select" className="block mb-2">Select a Shop:</label>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="bg-white rounded-lg shadow-lg p-6">
+            <h2 className="text-2xl font-semibold mb-4 text-indigo-700">Shop Selection</h2>
             <select
               id="shop-select"
               value={selectedShop}
               onChange={handleShopChange}
-              className="w-full p-2 border rounded"
+              className="w-full p-2 border border-indigo-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
             >
               {shops.map((shop) => (
                 <option key={shop.id} value={shop.id}>{shop.name}</option>
               ))}
             </select>
+
+            {shopDetails && (
+              <div className="mt-6">
+                <h3 className="text-xl font-semibold mb-2 text-indigo-600">Shop Details</h3>
+                <div className="bg-indigo-50 p-4 rounded-lg">
+                  <p><span className="font-semibold">Name:</span> {shopDetails.name}</p>
+                  <p><span className="font-semibold">Email:</span> {shopDetails.email}</p>
+                  <p><span className="font-semibold">Description:</span> {shopDetails.description}</p>
+                  <p><span className="font-semibold">Phone:</span> {shopDetails.phone_number}</p>
+                </div>
+                {shopDetails.image_url && (
+                  <img src={shopDetails.image_url} alt={shopDetails.name} className="mt-4 rounded-lg shadow-md max-w-full h-auto" />
+                )}
+              </div>
+            )}
           </div>
 
-          {shopDetails && (
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold mb-4">Shop Details</h2>
-              <p>Name: {shopDetails.name}</p>
-              <p>Email: {shopDetails.email}</p>
-              <p>Description: {shopDetails.description}</p>
-              <p>Phone: {shopDetails.phone_number}</p>
-              {shopDetails.image_url && (
-                <img src={shopDetails.image_url} alt={shopDetails.name} className="mt-4 max-w-xs" />
+          <div className="bg-white rounded-lg shadow-lg p-6">
+            <h2 className="text-2xl font-semibold mb-4 text-indigo-700">
+              {editingMenuItem ? 'Edit Menu Item' : 'Add Menu Item'}
+            </h2>
+            <form onSubmit={editingMenuItem ? handleUpdateMenuItem : handleAddMenuItem} className="space-y-4">
+              <input
+                type="text"
+                name="name"
+                value={editingMenuItem ? editingMenuItem.name : newMenuItem.name}
+                onChange={editingMenuItem ? (e) => setEditingMenuItem({...editingMenuItem, name: e.target.value}) : handleMenuItemInputChange}
+                placeholder="Item Name"
+                className="w-full p-2 border rounded"
+                required
+              />
+              <textarea
+                name="description"
+                value={editingMenuItem ? editingMenuItem.description : newMenuItem.description}
+                onChange={editingMenuItem ? (e) => setEditingMenuItem({...editingMenuItem, description: e.target.value}) : handleMenuItemInputChange}
+                placeholder="Description"
+                className="w-full p-2 border rounded"
+                required
+              />
+              <input
+                type="number"
+                name="price"
+                value={editingMenuItem ? editingMenuItem.price : newMenuItem.price}
+                onChange={editingMenuItem ? (e) => setEditingMenuItem({...editingMenuItem, price: e.target.value}) : handleMenuItemInputChange}
+                placeholder="Price"
+                className="w-full p-2 border rounded"
+                required
+              />
+              <button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300">
+                {editingMenuItem ? 'Update Item' : 'Add Item'}
+              </button>
+              {editingMenuItem && (
+                <button
+                  type="button"
+                  onClick={() => setEditingMenuItem(null)}
+                  className="w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 mt-2"
+                >
+                  Cancel Edit
+                </button>
               )}
+            </form>
+          </div>
+        </div>
+      )}
+
+      {!isCreatingShop && (
+        <div className="mt-8">
+          <h2 className="text-2xl font-semibold mb-4 text-indigo-700">Menu Items</h2>
+          {menuItemsError && <p className="text-red-500 mb-4 bg-red-100 py-2 px-4 rounded-lg">{menuItemsError}</p>}
+          {menuItems.length === 0 ? (
+            <p className="text-center text-gray-600">No menu items available.</p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {menuItems.map((item) => (
+                <div key={item.item_id} className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105">
+                  <div className="p-4">
+                    <h3 className="font-bold text-lg mb-2 text-indigo-600">{item.name}</h3>
+                    <p className="text-gray-600 mb-2">{item.description}</p>
+                    <p className="text-indigo-500 font-semibold">Price: ${item.price}</p>
+                  </div>
+                  <div className="bg-gray-100 px-4 py-2 flex justify-end space-x-2">
+                    <button
+                      onClick={() => setEditingMenuItem(item)}
+                      className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded-full text-sm transition duration-300"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDeleteMenuItem(item.item_id)}
+                      className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded-full text-sm transition duration-300"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
           )}
-
-        <div className="mb-8">
-        <h2 className="text-2xl font-bold mb-4">Menu Items</h2>
-        {menuItemsError && <p className="text-red-500 mb-4">{menuItemsError}</p>}
-        {menuItems.length === 0 ? (
-          <p>No menu items available.</p>
-        ) : (
-          <ul className="space-y-4">
-            {menuItems.map((item) => (
-              <li key={item.item_id} className="border p-4 rounded">
-                <h3 className="font-bold">{item.name}</h3>
-                <p>{item.description}</p>
-                <p>Price: ${item.price}</p>
-                <div className="mt-2">
-                  <button
-                    onClick={() => setEditingMenuItem(item)}
-                    className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded mr-2"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDeleteMenuItem(item.item_id)}
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold mb-4">
-          {editingMenuItem ? 'Edit Menu Item' : 'Add Menu Item'}
-        </h2>
-        <form onSubmit={editingMenuItem ? handleUpdateMenuItem : handleAddMenuItem} className="space-y-4">
-          <input
-            type="text"
-            name="name"
-            value={editingMenuItem ? editingMenuItem.name : newMenuItem.name}
-            onChange={editingMenuItem ? (e) => setEditingMenuItem({...editingMenuItem, name: e.target.value}) : handleMenuItemInputChange}
-            placeholder="Item Name"
-            className="w-full p-2 border rounded"
-            required
-          />
-          <textarea
-            name="description"
-            value={editingMenuItem ? editingMenuItem.description : newMenuItem.description}
-            onChange={editingMenuItem ? (e) => setEditingMenuItem({...editingMenuItem, description: e.target.value}) : handleMenuItemInputChange}
-            placeholder="Description"
-            className="w-full p-2 border rounded"
-            required
-          />
-          <input
-            type="number"
-            name="price"
-            value={editingMenuItem ? editingMenuItem.price : newMenuItem.price}
-            onChange={editingMenuItem ? (e) => setEditingMenuItem({...editingMenuItem, price: e.target.value}) : handleMenuItemInputChange}
-            placeholder="Price"
-            className="w-full p-2 border rounded"
-            required
-          />
-          <button type="submit" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-            {editingMenuItem ? 'Update Item' : 'Add Item'}
-          </button>
-          {editingMenuItem && (
-            <button
-              type="button"
-              onClick={() => setEditingMenuItem(null)}
-              className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-2"
-            >
-              Cancel Edit
-            </button>
-          )}
-        </form>
-      </div>
-        </>
+        </div>
       )}
     </div>
   );
