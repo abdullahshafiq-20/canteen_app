@@ -16,6 +16,7 @@ import LiveOrders from './pages/userDashboard/LiveOrders';
 import Profile from './pages/userDashboard/Profile';
 import OTPVerification from './pages/OtpVerification';
 import ShopSignupPage from './pages/ShopSignup';
+import ShopManager from './pages/dashboard/ShopManager';
 
 const App = () => {
   return (
@@ -42,8 +43,8 @@ const App = () => {
           }>
             <Route index element={<Home />} />
             <Route path="home" element={<Home />} />
-            <Route path="menu" element={<Menu />} />
             <Route path="orders" element={<Orders />} />
+            <Route path="shopmanager" element={<ShopManager />} />
             <Route path="customers" element={<Customers />} />
           </Route>
 

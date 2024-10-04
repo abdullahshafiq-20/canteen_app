@@ -5,7 +5,7 @@ import { useAuth } from '../contexts/AuthContexts'; // Update this path as neede
 const Sidebar = () => {
   const location = useLocation();
   const { logout } = useAuth();
-  const sidebarItems = ['Home', 'Menu', 'Orders', 'Customers'];
+  const sidebarItems = ['Home', 'ShopManager', 'Orders', 'Customers'];
 
   const handleLogout = () => {
     logout();
