@@ -5,6 +5,7 @@ import io from "socket.io-client";
 import api from "../../services/api";
 import Modal from "../../components/Modal";
 
+
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
@@ -15,7 +16,7 @@ const Orders = () => {
   useEffect(() => {
     fetchShopOrders();
 
-    const socket = io("https://mysql-backend-fvjo.onrender.com");
+    const socket = io(process.env.API);
 
     socket.on("newOrder", (newOrder) => {
       setOrders((prevOrders) => [newOrder, ...prevOrders]);

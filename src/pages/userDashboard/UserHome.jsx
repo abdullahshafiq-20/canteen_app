@@ -23,7 +23,7 @@ const UserHome = () => {
     fetchShops();
     fetchUserOrders();
 
-    const socket = io("https://mysql-backend-fvjo.onrender.com");
+    const socket = io(process.env.API);
 
     socket.on("orderUpdate", (updatedOrder) => {
       setUserOrders((prevOrders) =>
