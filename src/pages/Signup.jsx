@@ -36,7 +36,8 @@ export default function SignupPage() {
   };
 
   const handleGoogleSignup = () => {
-    window.location.href = `${process.env.API}/api/auth/google`;
+    const apiUrl = import.meta.env.VITE_API_URL;
+    window.location.href = `${apiUrl}/api/auth/google`;
   };
 
   return (
