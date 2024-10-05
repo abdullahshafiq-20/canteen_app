@@ -17,6 +17,7 @@ import Profile from './pages/userDashboard/Profile';
 import OTPVerification from './pages/OtpVerification';
 import ShopSignupPage from './pages/ShopSignup';
 import ShopManager from './pages/dashboard/ShopManager';
+import AuthCallback from './contexts/AuthCallBack';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Routes>
           <Route element={<PublicRoute />}>
             <Route path="/" element={<LoginPage />} />
+            <Route path="/auth/callback" element={<AuthCallback />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/shopsignup" element={<ShopSignupPage />} />
 

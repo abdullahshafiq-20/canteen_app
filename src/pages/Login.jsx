@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContexts';
 import api from '../services/api';
 
+
+
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -29,8 +31,8 @@ export default function LoginPage() {
   };
 
   const handleGoogleLogin = () => {
-    console.log(process.env.API);
-    window.location.href = `${process.env.API}/api/auth/google`;
+    const apiUrl = import.meta.env.VITE_API_URL;
+    window.location.href = `${apiUrl}/api/auth/google`;
   };
 
   return (
