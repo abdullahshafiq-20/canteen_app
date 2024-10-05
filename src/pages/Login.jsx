@@ -29,6 +29,7 @@ export default function LoginPage() {
   };
 
   const handleGoogleLogin = () => {
+    console.log(process.env.API);
     window.location.href = `${process.env.API}/api/auth/google`;
   };
 
