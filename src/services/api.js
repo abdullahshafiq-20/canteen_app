@@ -2,8 +2,8 @@ import axios from 'axios';
 import { getToken } from '../utils/auth';
 
 const api = axios.create({
-  // baseURL: 'https://mysql-backend-fvjo.onrender.com/api',
-  baseURL: 'http://localhost:5000/api', // Replace with your API URL
+  baseURL: 'https://mysql-backend-fvjo.onrender.com/api',
+  // baseURL: 'http://localhost:5000/api', // Replace with your API URL
 });
 
 api.interceptors.request.use(
