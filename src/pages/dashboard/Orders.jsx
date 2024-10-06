@@ -16,7 +16,7 @@ const Orders = () => {
   useEffect(() => {
     fetchShopOrders();
 
-    const socket = io(process.env.API);
+    const socket = io(import.meta.env.VITE_API_URL);
 
     socket.on("newOrder", (newOrder) => {
       setOrders((prevOrders) => [newOrder, ...prevOrders]);

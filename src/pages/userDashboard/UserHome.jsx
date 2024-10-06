@@ -23,7 +23,7 @@ const UserHome = () => {
     fetchShops();
     fetchUserOrders();
 
-    const socket = io(process.env.API);
+    const socket = io(import.meta.env.VITE_API_URL);
 
     socket.on("orderUpdate", (updatedOrder) => {
       setUserOrders((prevOrders) =>
