@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { getToken } from '../utils/auth';
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
-  // baseURL: 'https://mysql-backend-fvjo.onrender.com/api',
+  
+  baseURL: `${apiUrl}/api`,
   // baseURL: 'http://localhost:5000/api', // Replace with your API URL
 });
 
